@@ -9,7 +9,7 @@ export const TournamentSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   image: z.url(),
-  status: z.enum(["upcoming", "ongoing", "ended"]).default("ongoing"),
+  status: z.enum(["upcoming", "ongoing", "finished"]).default("ongoing"),
   startDate: z.string(),
   endDate: z.string(),
   prizes: z.record(z.string(), z.number()),
