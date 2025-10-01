@@ -25,7 +25,10 @@ async function getJSON<T>(path: string, schema: z.ZodType<T>): Promise<T> {
 
   const parsed = schema.safeParse(data);
   if (!parsed.success) {
-    console.error("[API] Schema validation failed:", parsed.error.format());
+    console.error(
+      "[API] Schema validation failed:",
+      z.treeifyError(parsed.error)
+    );
     throw new Error("Schema validation failed");
   }
   return parsed.data;
