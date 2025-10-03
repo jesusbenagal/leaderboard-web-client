@@ -15,40 +15,50 @@ export function TournamentHeader({ tournament, stats }: Props) {
 
   return (
     <section className="rounded-2xl overflow-hidden shadow-card border border-slate-800">
-      <div className="relative bg-slate-900">
-        <img
-          src={tournament.image}
-          alt={tournament.name}
-          className="h-40 w-full object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#12161c] via-transparent to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-6 bg-diagonal-candy" />
-        <div className="absolute inset-0 p-5 flex items-end justify-between">
+      <div className="relative h-[200px] sm:h-[220px] md:h-[260px]">
+        <div className="absolute inset-0">
+          <img
+            src={tournament.image}
+            alt={tournament.name}
+            className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+
+        <div className="absolute inset-0 p-4 sm:p-5 md:p-6 flex flex-col justify-between">
           <div>
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/30">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold flex items-start sm:items-center gap-2 flex-wrap">
+              <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-amber-500/30 border border-amber-400/40 backdrop-blur-sm shadow-lg">
                 💰
               </span>
-              {tournament.name}
+              <span className="text-white drop-shadow-lg leading-tight">
+                {tournament.name}
+              </span>
             </h2>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-100 text-xs sm:text-sm mt-2 ml-0 sm:ml-10 drop-shadow-md">
               Prize pool:{" "}
               <span className="text-green-400 font-semibold">
                 {formatCurrency(tournament.totalPrizePool)}
               </span>
             </p>
           </div>
-          <div
-            className={clsx(
-              "rounded-xl border px-3 py-2 text-sm flex items-center gap-2",
-              "border-slate-700 bg-slate-900/70"
-            )}
-            title={ended ? "Tournament ended" : "Time remaining"}
-          >
-            <span className="text-slate-400">Ends in:</span>
-            <span className="font-mono">
-              {days}d {hours}h {minutes}m
-            </span>
+
+          <div className="flex justify-end">
+            <div
+              className={clsx(
+                "rounded-lg border px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm flex items-center gap-2 shadow-xl",
+                "border-slate-600/60 bg-slate-900/95 backdrop-blur-md"
+              )}
+              title={ended ? "Tournament ended" : "Time remaining"}
+            >
+              <span className="text-slate-200 hidden sm:inline">Ends in:</span>
+              <span className="text-slate-200 sm:hidden">⏱</span>
+              <span className="font-mono font-semibold text-white">
+                {days}d {hours}h {minutes}m
+              </span>
+            </div>
           </div>
         </div>
       </div>

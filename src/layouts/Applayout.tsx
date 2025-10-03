@@ -1,9 +1,8 @@
-// Minimal app shell with sticky header/footer and constrained content width.
 import type { PropsWithChildren } from "react";
 
 export function Applayout({ children }: PropsWithChildren) {
   return (
-    <div className="min-h-full w-full">
+    <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-20 bg-[#12161c]/80 backdrop-blur border-b border-slate-800">
         <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-semibold tracking-tight">
@@ -19,7 +18,11 @@ export function Applayout({ children }: PropsWithChildren) {
           </a>
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
+
+      <main className="flex-1">
+        <div className="mx-auto max-w-6xl px-4 py-6">{children}</div>
+      </main>
+
       <footer className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500">
         Built with React + TypeScript
       </footer>
