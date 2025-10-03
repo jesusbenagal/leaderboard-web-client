@@ -14,7 +14,7 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
     `https://api.dicebear.com/7.x/avataaars/svg?seed=${row.playerId}`;
 
   return (
-    <motion.tr
+    <motion.li
       layout
       layoutId={`row-${row.playerId}`}
       initial={{ opacity: 0 }}
@@ -24,8 +24,9 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
         "lb-grid items-center px-2 py-3 rounded-lg",
         row.rank % 2 === 0 ? "bg-slate-800/60" : "bg-slate-800/40"
       )}
+      role="listitem"
     >
-      <td className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
         <span
           className={clsx(
             "rank-badge h-8 w-8 grid place-content-center text-xs font-semibold",
@@ -36,9 +37,8 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
         >
           {row.rank}
         </span>
-      </td>
-
-      <td className="flex items-center gap-3 min-w-0">
+      </div>
+      <div className="flex items-center gap-3 min-w-0">
         <img
           src={avatar}
           alt={row.username}
@@ -46,16 +46,15 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
           loading="lazy"
         />
         <span className="truncate font-medium">{row.username}</span>
-      </td>
-
-      <td
+      </div>
+      <div
         className={clsx(
           "text-right font-semibold tabular-nums whitespace-nowrap pr-3 sm:pr-0",
           prizeColor
         )}
       >
         {formatCurrency(row.totalBets)}
-      </td>
-    </motion.tr>
+      </div>
+    </motion.li>
   );
 });

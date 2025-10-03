@@ -21,13 +21,13 @@ export function LeaderboardTable({
       </header>
 
       <div className="p-2 lb-scroll">
-        <motion.tbody layout className="flex flex-col gap-2">
+        <motion.ul layout className="flex flex-col gap-2" role="list">
           <AnimatePresence initial={false}>
             {data?.slice(0, 30).map((row) => (
               <LeaderboardRow key={row.playerId} row={row} />
             ))}
           </AnimatePresence>
-        </motion.tbody>
+        </motion.ul>
       </div>
     </section>
   );

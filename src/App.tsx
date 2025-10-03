@@ -15,7 +15,7 @@ export default function App() {
     queryFn: Api.tournaments,
   });
 
-  const tournament = tournamentsQ.data?.[0] ?? null;
+  const tournament = tournamentsQ.data?.[1] ?? null;
   const tournamentId = tournament?.id ?? 0;
 
   const statsQ = useQuery({
