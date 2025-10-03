@@ -6,6 +6,8 @@ import { TournamentHeader } from "./components/TournamentHeader";
 import { PrizeLegend } from "./components/PrizeLegend";
 
 import { Api } from "./lib/api";
+import { useLeaderboard } from "./hooks/useLeaderboard";
+import { LeaderboardTable } from "./components/LeaderboardTable";
 
 export default function App() {
   const tournamentsQ = useQuery({
@@ -22,6 +24,8 @@ export default function App() {
     enabled: tournamentId > 0,
     staleTime: 15_000,
   });
+
+  const leaderboardQ = useLeaderboard(tournamentId);
 
   if (tournamentsQ.isLoading) {
     return (
@@ -46,6 +50,7 @@ export default function App() {
         {...(statsQ.data ? { stats: statsQ.data } : {})}
       />
       <PrizeLegend tournament={tournament} />
+      <LeaderboardTable data={leaderboardQ.data} />
     </Applayout>
   );
 }
