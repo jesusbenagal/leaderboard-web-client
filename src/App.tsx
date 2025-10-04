@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-
 import { Applayout } from "./layouts/Applayout";
 
 import { TournamentHeader } from "./components/TournamentHeader";
@@ -7,31 +5,13 @@ import { PrizeLegend } from "./components/PrizeLegend";
 import { LeaderboardTable } from "./components/LeaderboardTable";
 import { BetFeed } from "./components/BetFeed";
 
-import { Api } from "./lib/api";
-
-import { useLeaderboard } from "./hooks/useLeaderboard";
-import { useBetFeed } from "./hooks/useBetFeed";
+import { useAppData } from "./hooks/useAppData";
 
 export default function App() {
-  const tournamentsQ = useQuery({
-    queryKey: ["tournaments"],
-    queryFn: Api.tournaments,
-  });
+  const { tournament, stats, leaderboard, bets, isLoading, isError } =
+    useAppData();
 
-  const tournament = tournamentsQ.data?.[1] ?? null;
-  const tournamentId = tournament?.id ?? 0;
-
-  const statsQ = useQuery({
-    queryKey: ["stats", tournamentId],
-    queryFn: () => Api.stats(tournamentId),
-    enabled: tournamentId > 0,
-    staleTime: 15_000,
-  });
-
-  const leaderboardQ = useLeaderboard(tournamentId);
-  const betsQ = useBetFeed(tournamentId);
-
-  if (tournamentsQ.isLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen grid place-content-center">
         <p className="text-slate-400">Loading tournaments…</p>
@@ -39,7 +19,7 @@ export default function App() {
     );
   }
 
-  if (tournamentsQ.isError || !tournament) {
+  if (isError || !tournament) {
     return (
       <div className="min-h-screen grid place-content-center">
         <p className="text-slate-400">No active tournaments</p>
@@ -49,17 +29,11 @@ export default function App() {
 
   return (
     <Applayout>
-      <TournamentHeader
-        tournament={tournament}
-        {...(statsQ.data ? { stats: statsQ.data } : {})}
-      />
+      <TournamentHeader tournament={tournament} {...(stats ? { stats } : {})} />
       <PrizeLegend tournament={tournament} />
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-        <LeaderboardTable
-          data={leaderboardQ.data}
-          tournamentId={tournamentId}
-        />
-        <BetFeed bets={betsQ.data} />
+        <LeaderboardTable data={leaderboard} tournamentId={tournament.id} />
+        <BetFeed bets={bets} />
       </div>
     </Applayout>
   );
