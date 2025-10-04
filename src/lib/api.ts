@@ -4,10 +4,12 @@ import { API_URL } from "../config";
 import {
   BetSchema,
   LeaderboardEntrySchema,
+  PlayerSchema,
   TournamentSchema,
   TournamentStatsSchema,
   type Bet,
   type LeaderboardEntry,
+  type Player,
   type Tournament,
   type TournamentStats,
 } from "./types";
@@ -57,4 +59,7 @@ export const Api = {
   /** Recent bets (used by the live feed as initial data / fallback) */
   bets: (tournamentId: number) =>
     getJSON<Bet[]>(`/api/bets/${tournamentId}`, z.array(BetSchema)),
+
+  /** Player */
+  players: () => getJSON<Player[]>(`/api/players`, z.array(PlayerSchema)),
 };
