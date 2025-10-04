@@ -14,9 +14,6 @@ body {
 }
 
 /* Utilities used by components */
-.table-grid {
-  grid-template-columns: 48px 1fr 160px;
-}
 
 .rank-badge {
   clip-path: polygon(
@@ -26,14 +23,6 @@ body {
     75% 93.3%,
     25% 93.3%,
     0% 50%
-  );
-}
-
-.bg-diagonal-candy {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 105, 180, 0.35) 0 10px,
-    rgba(255, 105, 180, 0.15) 10px 20px
   );
 }
 
