@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* App base */
+:root {
+  color-scheme: dark;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  @apply bg-[#12161c] text-slate-200;
+}
+
+/* Utilities used by components */
+
+.rank-badge {
+  clip-path: polygon(
+    25% 6.7%,
+    75% 6.7%,
+    100% 50%,
+    75% 93.3%,
+    25% 93.3%,
+    0% 50%
+  );
+}
+
+.shadow-card {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.lb-grid {
+  display: grid;
+  grid-template-columns: 48px 1fr minmax(120px, max-content);
+}
+@media (min-width: 640px) {
+  /* sm: */
+  .lb-grid {
+    grid-template-columns: 56px 1fr 160px;
+  }
+}
+
+/* Area of scroll universal (all sizes) */
+.lb-scroll {
+  max-height: clamp(280px, 31svh, 520px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch; /* smooth on iOS */
+  scrollbar-gutter: stable both-edges; /* reserve space for the bar → Wagers doesn't get covered */
+}
