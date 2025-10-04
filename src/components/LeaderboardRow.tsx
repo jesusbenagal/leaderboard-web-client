@@ -5,11 +5,14 @@ import { clsx } from "clsx";
 import type { LeaderboardEntry } from "../lib/types";
 import { formatCurrency } from "../lib/format";
 
-type Props = { row: LeaderboardEntry };
+type Props = { row: LeaderboardEntry; onSelect?: (playerId: number) => void };
 
-export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
-  const isTop3 = row.rank <= 3;
-  const prizeColor = row.rank <= 5 ? "text-green-400" : "text-slate-300";
+export const LeaderboardRow = memo(function LeaderboardRow({
+  row,
+  onSelect,
+}: Props) {
+  const isTop5 = row.rank <= 5;
+  const prizeColor = isTop5 ? "text-green-400" : "text-slate-300";
   const avatar =
     row.avatar ??
     `https://api.dicebear.com/7.x/avataaars/svg?seed=${row.playerId}`;
@@ -23,15 +26,22 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
       exit={{ opacity: 0 }}
       className={clsx(
         "lb-grid items-center px-2 py-3 rounded-lg",
-        row.rank % 2 === 0 ? "bg-slate-800/60" : "bg-slate-800/40"
+        row.rank % 2 === 0 ? "bg-slate-800/60" : "bg-slate-800/40",
+        "cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
       )}
-      role="listitem"
+      role="button"
+      tabIndex={0}
+      onClick={() => onSelect?.(row.playerId)}
+      onKeyDown={(e) =>
+        (e.key === "Enter" || e.key === " ") && onSelect?.(row.playerId)
+      }
     >
+      {/* Rank */}
       <div className="flex items-center gap-2">
         <span
           className={clsx(
             "rank-badge h-8 w-8 grid place-content-center text-xs font-semibold",
-            isTop3
+            row.rank <= 3
               ? "bg-amber-500/25 border border-amber-300/40 text-amber-200"
               : "bg-slate-700/40 border border-slate-600 text-slate-300"
           )}
@@ -39,6 +49,8 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
           {row.rank}
         </span>
       </div>
+
+      {/* Player */}
       <div className="flex items-center gap-3 min-w-0">
         <img
           src={avatar}
@@ -48,6 +60,8 @@ export const LeaderboardRow = memo(function LeaderboardRow({ row }: Props) {
         />
         <span className="truncate font-medium">{row.username}</span>
       </div>
+
+      {/* Wagers */}
       <div
         className={clsx(
           "text-right font-semibold tabular-nums whitespace-nowrap pr-3 sm:pr-0",

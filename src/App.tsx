@@ -55,7 +55,10 @@ export default function App() {
       />
       <PrizeLegend tournament={tournament} />
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-        <LeaderboardTable data={leaderboardQ.data} />
+        <LeaderboardTable
+          data={leaderboardQ.data}
+          tournamentId={tournamentId}
+        />
         <BetFeed bets={betsQ.data} />
       </div>
     </Applayout>
