@@ -26,25 +26,25 @@ export function TournamentHeader({ tournament, stats }: Props) {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-
         <div className="absolute inset-0 p-4 sm:p-5 md:p-6 flex flex-col justify-between">
           <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold flex items-start sm:items-center gap-2 flex-wrap">
-              <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-amber-500/30 border border-amber-400/40 backdrop-blur-sm shadow-lg">
-                💰
-              </span>
-              <span className="text-white drop-shadow-lg leading-tight">
-                {tournament.name}
-              </span>
-            </h2>
-            <p className="text-slate-100 text-xs sm:text-sm mt-2 ml-0 sm:ml-10 drop-shadow-md">
-              Prize pool:{" "}
-              <span className="text-green-400 font-semibold">
-                {formatCurrency(tournament.totalPrizePool)}
-              </span>
-            </p>
+            <div className="inline-flex max-w-[min(100%,68ch)] flex-col gap-2 rounded-xl bg-black/65 backdrop-blur-[2px] px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/30 border border-amber-400/40 shadow-md">
+                  💰
+                </span>
+                <span className="text-white font-extrabold leading-snug tracking-tight text-xl sm:text-xl md:text-2xl">
+                  {tournament.name}
+                </span>
+              </div>
+              <p className="text-slate-100 text-xs sm:text-sm pl-9 sm:pl-10">
+                Prize pool:{" "}
+                <span className="text-green-400 font-semibold">
+                  {formatCurrency(tournament.totalPrizePool)}
+                </span>
+              </p>
+            </div>
           </div>
-
           <div className="flex justify-end">
             <div
               className={clsx(
@@ -62,7 +62,6 @@ export function TournamentHeader({ tournament, stats }: Props) {
           </div>
         </div>
       </div>
-
       {stats && (
         <div className="grid grid-cols-3 gap-4 p-4 bg-[#1a2029] border-t border-slate-800 text-sm">
           <Stat label="Total bets" value={formatNumber(stats.totalBets)} />

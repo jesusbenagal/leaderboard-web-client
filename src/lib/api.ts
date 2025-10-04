@@ -1,11 +1,12 @@
 import { z } from "zod";
-
 import { API_URL } from "../config";
 
 import {
+  BetSchema,
   LeaderboardEntrySchema,
   TournamentSchema,
   TournamentStatsSchema,
+  type Bet,
   type LeaderboardEntry,
   type Tournament,
   type TournamentStats,
@@ -52,4 +53,8 @@ export const Api = {
       `/api/tournaments/${tournamentId}/stats`,
       TournamentStatsSchema
     ),
+
+  /** Recent bets (used by the live feed as initial data / fallback) */
+  bets: (tournamentId: number) =>
+    getJSON<Bet[]>(`/api/bets/${tournamentId}`, z.array(BetSchema)),
 };

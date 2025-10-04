@@ -4,10 +4,13 @@ import { Applayout } from "./layouts/Applayout";
 
 import { TournamentHeader } from "./components/TournamentHeader";
 import { PrizeLegend } from "./components/PrizeLegend";
+import { LeaderboardTable } from "./components/LeaderboardTable";
+import { BetFeed } from "./components/BetFeed";
 
 import { Api } from "./lib/api";
+
 import { useLeaderboard } from "./hooks/useLeaderboard";
-import { LeaderboardTable } from "./components/LeaderboardTable";
+import { useBetFeed } from "./hooks/useBetFeed";
 
 export default function App() {
   const tournamentsQ = useQuery({
@@ -26,6 +29,7 @@ export default function App() {
   });
 
   const leaderboardQ = useLeaderboard(tournamentId);
+  const betsQ = useBetFeed(tournamentId);
 
   if (tournamentsQ.isLoading) {
     return (
@@ -50,7 +54,10 @@ export default function App() {
         {...(statsQ.data ? { stats: statsQ.data } : {})}
       />
       <PrizeLegend tournament={tournament} />
-      <LeaderboardTable data={leaderboardQ.data} />
+      <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <LeaderboardTable data={leaderboardQ.data} />
+        <BetFeed bets={betsQ.data} />
+      </div>
     </Applayout>
   );
 }

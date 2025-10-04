@@ -1,8 +1,9 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
+import { clsx } from "clsx";
+
 import type { LeaderboardEntry } from "../lib/types";
 import { formatCurrency } from "../lib/format";
-import { clsx } from "clsx";
 
 type Props = { row: LeaderboardEntry };
 

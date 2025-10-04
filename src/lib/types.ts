@@ -38,6 +38,18 @@ export const TournamentStatsSchema = z.object({
 });
 export type TournamentStats = z.infer<typeof TournamentStatsSchema>;
 
+export const BetSchema = z.object({
+  id: z.number(),
+  playerId: z.number(),
+  playerUsername: z.string(),
+  playerAvatar: z.string().url().optional(),
+  amount: z.number(),
+  betType: z.string(),
+  timestamp: z.string(),
+  status: z.string().optional(),
+});
+export type Bet = z.infer<typeof BetSchema>;
+
 /** --- WebSocket message contracts --- */
 const WsBetPlacedSchema = z.object({
   type: z.literal("bet_placed"),

@@ -1,6 +1,5 @@
-// Top-5 prizes legend.
-import type { Tournament } from "../lib/types";
 import { formatCurrency } from "../lib/format";
+import type { Tournament } from "../lib/types";
 
 export function PrizeLegend({ tournament }: { tournament: Tournament }) {
   const entries = Object.entries(tournament.prizes)

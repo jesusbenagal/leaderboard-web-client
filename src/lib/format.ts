@@ -18,7 +18,3 @@ export const formatNumber = (value: number, locale = "es-ES") =>
 
 export const formatDate = (date: string, locale = "es-ES") =>
   new Intl.DateTimeFormat(locale).format(new Date(date));
-
-/** Helper for countdowns and time comparisons */
-export const msUntil = (iso: string): number =>
-  new Date(iso).getTime() - Date.now();

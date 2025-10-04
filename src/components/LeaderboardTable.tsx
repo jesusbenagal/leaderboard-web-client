@@ -1,5 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
+
 import { LeaderboardRow } from "./LeaderboardRow";
+
 import type { LeaderboardEntry } from "../lib/types";
 
 /**
@@ -11,7 +13,7 @@ export function LeaderboardTable({
   data: LeaderboardEntry[] | undefined;
 }) {
   return (
-    <section className="mt-4 rounded-2xl overflow-hidden border border-slate-800 bg-[#1a2029]">
+    <section className="rounded-2xl overflow-hidden border border-slate-800 bg-[#1a2029]">
       <header className="px-4 py-3 border-b border-slate-800 bg-[#1f2630]">
         <div className="lb-grid text-slate-400 text-sm">
           <span>#</span>
