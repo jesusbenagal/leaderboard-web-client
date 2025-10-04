@@ -50,18 +50,6 @@ export const BetSchema = z.object({
 });
 export type Bet = z.infer<typeof BetSchema>;
 
-export const PlayerSchema = z.object({
-  id: z.number(),
-  username: z.string(),
-  avatar: z.url().optional(),
-  totalBets: z.number(),
-  betsCount: z.number(),
-  favoritesSport: z.string().optional(),
-  joinDate: z.string(),
-  currentRank: z.number().optional(),
-});
-export type Player = z.infer<typeof PlayerSchema>;
-
 /** --- WebSocket message contracts --- */
 const WsBetPlacedSchema = z.object({
   type: z.literal("bet_placed"),

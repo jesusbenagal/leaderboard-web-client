@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 import { LeaderboardRow } from "./LeaderboardRow";
 import { PlayerProfileDrawer } from "./PlayerProfileDrawer";
@@ -11,12 +11,11 @@ type Props = {
   tournamentId: number;
 };
 
-/** Leaderboard */
 export function LeaderboardTable({ data, tournamentId }: Props) {
-  const [selectedPlayerId, setSelectedPlayerId] = useState<number | null>(null);
+  const [selectedRow, setSelectedRow] = useState<LeaderboardEntry | null>(null);
 
   return (
-    <section className="mt-4 rounded-2xl overflow-hidden border border-slate-800 bg-[#1a2029]">
+    <section className="rounded-2xl overflow-hidden border border-slate-800 bg-[#1a2029]">
       <header className="px-4 py-3 border-b border-slate-800 bg-[#1f2630]">
         <div className="lb-grid text-slate-400 text-sm">
           <span>#</span>
@@ -32,7 +31,7 @@ export function LeaderboardTable({ data, tournamentId }: Props) {
               <LeaderboardRow
                 key={row.playerId}
                 row={row}
-                onSelect={setSelectedPlayerId}
+                onSelect={setSelectedRow}
               />
             ))}
           </AnimatePresence>
@@ -40,9 +39,9 @@ export function LeaderboardTable({ data, tournamentId }: Props) {
       </div>
 
       <PlayerProfileDrawer
-        playerId={selectedPlayerId}
         tournamentId={tournamentId}
-        onClose={() => setSelectedPlayerId(null)}
+        player={selectedRow}
+        onClose={() => setSelectedRow(null)}
       />
     </section>
   );

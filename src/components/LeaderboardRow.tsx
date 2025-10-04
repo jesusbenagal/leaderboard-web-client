@@ -2,10 +2,13 @@ import { memo } from "react";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
 
-import type { LeaderboardEntry } from "../lib/types";
 import { formatCurrency } from "../lib/format";
+import type { LeaderboardEntry } from "../lib/types";
 
-type Props = { row: LeaderboardEntry; onSelect?: (playerId: number) => void };
+type Props = {
+  row: LeaderboardEntry;
+  onSelect?: (row: LeaderboardEntry) => void;
+};
 
 export const LeaderboardRow = memo(function LeaderboardRow({
   row,
@@ -31,10 +34,8 @@ export const LeaderboardRow = memo(function LeaderboardRow({
       )}
       role="button"
       tabIndex={0}
-      onClick={() => onSelect?.(row.playerId)}
-      onKeyDown={(e) =>
-        (e.key === "Enter" || e.key === " ") && onSelect?.(row.playerId)
-      }
+      onClick={() => onSelect?.(row)}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSelect?.(row)}
     >
       {/* Rank */}
       <div className="flex items-center gap-2">
